@@ -11,21 +11,7 @@ namespace GeometricalCalculation
     {
         protected void Application_Start()
         {
-            GlobalConfiguration.Configure(config =>
-            {
-                config.MapHttpAttributeRoutes();
-
-                config.Routes.MapHttpRoute(
-                    name: "DefaultApi",
-                    routeTemplate: "api/{controller}/{id}/{baseWidth}/{height}",
-                    defaults: new
-                    {
-                        id = RouteParameter.Optional,
-                        baseWidth  = RouteParameter.Optional,
-                        height = RouteParameter.Optional
-                    }
-                    );
-            });
-        }
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+        }          
     }
 }

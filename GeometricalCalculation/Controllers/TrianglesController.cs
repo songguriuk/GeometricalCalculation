@@ -20,7 +20,7 @@ namespace GeometricalCalculation.Controllers
                 TriangleId = id,
                 Base = baseWidth,
                 Height = height,
-                Area = Math.Abs(baseWidth * height * 0.5)
+                Area = Math.Abs(baseWidth * height)/2
             };
                 
             if(Validate())
@@ -42,6 +42,7 @@ namespace GeometricalCalculation.Controllers
 
         private bool Validate()
         {
+
             if (ValidLength(triangle.Base) && ValidLength(triangle.Height) && ValidLength(triangle.Area))
             {
                 return true;
@@ -53,13 +54,20 @@ namespace GeometricalCalculation.Controllers
             
         }
 
-        private bool ValidLength(double value)
+        private bool ValidLength(Double value)
         {
             bool isValid = true;
 
-            if (value.ToString().Length > 9 || Math.Round((decimal)value) > 100) isValid = false;
-
-            errorMessage =string.Format( "{0} is  not valid range.",value);
+            if (value == 0)
+            {
+                errorMessage = string.Format("Input value shouldn't be zero.", value);
+                isValid = false;
+            }
+            else if(value.ToString().Length > 9 || Math.Round((decimal)value) > 100)
+            {
+                errorMessage = string.Format("{0} is  not valid range.", value);
+                isValid = false;
+            }
             
             return isValid;
         }
