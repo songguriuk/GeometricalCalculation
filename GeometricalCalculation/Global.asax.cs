@@ -17,9 +17,10 @@ namespace GeometricalCalculation
 
                 config.Routes.MapHttpRoute(
                     name: "DefaultApi",
-                    routeTemplate: "api/{controller}/{baseWidth}/{height}",
+                    routeTemplate: "api/{controller}/{id}/{baseWidth}/{height}",
                     defaults: new
                     {
+                        id = RouteParameter.Optional,
                         baseWidth  = RouteParameter.Optional,
                         height = RouteParameter.Optional
                     }

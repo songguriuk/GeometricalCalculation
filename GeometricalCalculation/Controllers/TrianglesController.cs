@@ -10,17 +10,58 @@ namespace GeometricalCalculation.Controllers
 {
     public class TrianglesController : ApiController
     {
-        Triangle triangle = new Triangle();
 
+        private Triangle triangle;
+        private string errorMessage;
 
-        public IHttpActionResult GetTriangle(double baseWidth, double height)
+        public HttpResponseMessage GetTriangle(string id, double baseWidth, double height)
         {
-            triangle.Base = baseWidth;
-            triangle.Height = height;
-            triangle.Area = baseWidth * height * 0.5;
-
-            return Ok(triangle);
+            this.triangle = new Triangle{
+                TriangleId = id,
+                Base = baseWidth,
+                Height = height,
+                Area = Math.Abs(baseWidth * height * 0.5)
+            };
+                
+            if(Validate())
+            {
+                return Request.CreateResponse<Triangle>(HttpStatusCode.OK, triangle);
+            }
+                
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, errorMessage);
+            }
+            
         }
 
+        public HttpResponseMessage Get()
+        {
+            return Request.CreateErrorResponse(HttpStatusCode.NotFound, new Exception("No valid input parameter is given. Please try with valid URL. it is /api/triangles/{id}/{base}/{height}"));
+        }
+
+        private bool Validate()
+        {
+            if (ValidLength(triangle.Base) && ValidLength(triangle.Height) && ValidLength(triangle.Area))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+
+        private bool ValidLength(double value)
+        {
+            bool isValid = true;
+
+            if (value.ToString().Length > 9 || Math.Round((decimal)value) > 100) isValid = false;
+
+            errorMessage =string.Format( "{0} is  not valid range.",value);
+            
+            return isValid;
+        }
     }
 }
