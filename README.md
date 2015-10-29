@@ -1,6 +1,6 @@
 # GeometricalCalculation 
 ## Overview
-This service is to implement simple triangle Calculation based on given two scalar information - base and height. Used framework is Web api. Test cases are added in wiki page however it isn't implemented as lack of time. I am supposed to use Specflow so I also added imcompleted test client project too.
+This service is to implement simple triangle Calculation based on given two scalar information - base and height. Used framework is Web api. Test cases are added in wiki page however it isn't implemented as lack of time.
 
 ## Instruction
 * Please download visualStudio 2013 community. here: 
